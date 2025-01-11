@@ -156,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         String password=userPassword.text.trim();
                         String userDeviceToken="";
 
-                        if(name.isEmpty|| email.isEmpty|| phone.isEmpty|| city.isEmpty|| password.isEmpty||userDeviceToken.isEmpty)
+                        if(name.isEmpty|| email.isEmpty|| phone.isEmpty|| city.isEmpty|| password.isEmpty)
                         {
                           Get.snackbar("Error", "Please Enter all details",  snackPosition: SnackPosition.BOTTOM,
                               colorText: AppConstant.textColor,
