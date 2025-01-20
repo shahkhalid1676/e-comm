@@ -1,4 +1,5 @@
 import 'package:e_comm/screens/auth_ui/wellcome_screen.dart';
+import 'package:e_comm/screens/user_panel/all_orders_screen.dart';
 import 'package:e_comm/utils/app_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +88,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),),
                 leading: Icon(Icons.shopping_bag_outlined,color: Colors.white,),
                 trailing: Icon(Icons.arrow_forward,color: Colors.white,),
+                onTap: (){
+                  Get.back();
+                  Get.to(()=>AllOrdersScreen());
+                },
               )),
           Padding(
               padding: EdgeInsets.symmetric(

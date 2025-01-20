@@ -1,5 +1,5 @@
 
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unused_local_variable, file_names
+
 
 
 import 'package:e_comm/controllers/forget_password_controller.dart';
@@ -75,7 +75,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   width: Get.width / 2,
                   height: Get.height / 18,
                   decoration: BoxDecoration(
-                    color: AppConstant.appSecondaryColor,
+                    color: AppConstant.appMainColor,
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: TextButton(

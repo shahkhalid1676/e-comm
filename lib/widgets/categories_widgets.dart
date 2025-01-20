@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_comm/models/categories_model.dart';
+import 'package:e_comm/screens/user_panel/all_single_category_product_screen.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -52,8 +53,9 @@ class CategoriesWidget extends StatelessWidget {
                 return Row(
                   children: [
                     GestureDetector(
-                      onTap: () => Get.to(() => (
-                          categoryId: categoriesModel.categoryId)),
+                      onTap: () => Get.to(() => (AllSingleCategoryProductsScreen(categoryId: categoriesModel.categoryId)
+                      )),
+
                       child: Padding(
                         padding: EdgeInsets.all(5.0),
                         child: Container(

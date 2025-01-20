@@ -32,7 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
       return Scaffold(
         appBar: AppBar(
-          title: Text("SignIn"),
+          title: Text("SignUp"),
           centerTitle: true,
           backgroundColor: AppConstant.appSecondaryColor,
         ),

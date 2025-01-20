@@ -26,7 +26,7 @@ class _BannerWidgetState extends State<BannerWidget> {
               borderRadius: BorderRadius.circular(10.0),
               child: CachedNetworkImage(
                 imageUrl: imageUrls,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 width: Get.width - 10,
                 placeholder: (context, url) => ColoredBox(
                   color: Colors.white,

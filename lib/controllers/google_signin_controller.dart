@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_comm/controllers/get_device_token_controller.dart';
 import 'package:e_comm/models/user_model.dart';
-import 'package:e_comm/screens/auth_ui/wellcome_screen.dart';
+
 import 'package:e_comm/screens/user_panel/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,7 +20,8 @@ class GoogleSignInController extends GetxController {
           await googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
-        EasyLoading.show(status: "Please wait....");
+        EasyLoading.show(
+            status: "Please wait....");
         final GoogleSignInAuthentication googleSignInAuthentication =
             await googleSignInAccount.authentication;
 

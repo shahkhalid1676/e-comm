@@ -1,18 +1,17 @@
+import 'package:e_comm/controllers/get_user_data_controller.dart';
 import 'package:e_comm/controllers/sign_in_controller.dart';
+import 'package:e_comm/screens/admin_panel/admin_main_screen.dart';
 import 'package:e_comm/screens/auth_ui/forget_password_screen.dart';
 import 'package:e_comm/screens/auth_ui/sign_up_screen.dart';
 import 'package:e_comm/screens/user_panel/main_screen.dart';
 import 'package:e_comm/utils/app_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class SignInScreen extends StatefulWidget {
-  SignInScreen({super.key});
-
-  final SignInController signInController = Get.put(SignInController());
+  const SignInScreen({super.key});
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -20,6 +19,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final SignInController signInController = Get.put(SignInController());
+  final GetUserDataController getUserDataController =
+      Get.put(GetUserDataController());
   TextEditingController userEmail = TextEditingController();
   TextEditingController userPassword = TextEditingController();
 
@@ -84,8 +85,8 @@ class _SignInScreenState extends State<SignInScreen> {
               alignment: Alignment.centerRight,
               margin: EdgeInsets.all(19),
               child: GestureDetector(
-                onTap: (){
-                  Get.to( ()=>ForgetPasswordScreen());
+                onTap: () {
+                  Get.to(() => ForgetPasswordScreen());
                 },
                 child: Text(
                   "Forget Password",
@@ -105,22 +106,43 @@ class _SignInScreenState extends State<SignInScreen> {
                     color: AppConstant.appMainColor),
                 child: TextButton.icon(
                     onPressed: () async {
-                      String email=userEmail.text.trim();
-                      String password=userPassword.text.trim();
-        
-                      if(email.isEmpty||password.isEmpty){
+                      String email = userEmail.text.trim();
+                      String password = userPassword.text.trim();
+
+                      if (email.isEmpty || password.isEmpty) {
                         Get.snackbar("Error", "Please fill all your details");
-                      }else{
-                        UserCredential? userCredential= await signInController.signInMethod(email, password);
-        
-                        if(userCredential!=null){
-                          if(userCredential.user!.emailVerified){
-                            Get.snackbar("Success", "Login Successfully", snackPosition: SnackPosition.BOTTOM,
+                      } else {
+                        UserCredential? userCredential = await signInController
+                            .signInMethod(email, password);
+                        var userData= await getUserDataController.getUserData(userCredential!.user!.uid);
+
+                        if (userCredential != null) {
+                          if (userCredential.user!.emailVerified) {
+                            if(userData[0]["isAdmin"]==true){
+                              Get.offAll(()=>AdminMainScreen());
+                              Get.snackbar("Success Admin Login",
+                                  "Login Successfully",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  colorText: AppConstant.textColor,
+                                  backgroundColor: AppConstant.appMainColor);
+                            }else{
+                              Get.offAll(() => MainScreen());
+                              Get.snackbar("Success", "User Login Successfully",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  colorText: AppConstant.textColor,
+                                  backgroundColor: AppConstant.appMainColor);
+                            }
+    }
+                            Get.snackbar("Success", "Login Successfully",
+                                snackPosition: SnackPosition.BOTTOM,
                                 colorText: AppConstant.textColor,
                                 backgroundColor: AppConstant.appMainColor);
-                            Get.offAll(()=>MainScreen());
+                            Get.offAll(() => MainScreen());
                           }else{
-                            Get.snackbar("Error", "Please verify your email first", snackPosition: SnackPosition.BOTTOM,
+                             {
+                            Get.snackbar(
+                                "Error", "Please verify your email first",
+                                snackPosition: SnackPosition.BOTTOM,
                                 colorText: AppConstant.textColor,
                                 backgroundColor: AppConstant.appMainColor);
                           }
@@ -144,7 +166,8 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 Text(
                   "Don't Have An Account?  ",
-                  style: TextStyle(fontSize: 16, color: AppConstant.appMainColor),
+                  style:
+                      TextStyle(fontSize: 16, color: AppConstant.appMainColor),
                 ),
                 GestureDetector(
                   onTap: () {
